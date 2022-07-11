@@ -1,0 +1,49 @@
+CREATE TABLE slices (
+    md5     CHAR(50)        NOT NULL,
+    id      BIGINT          NOT NULL,
+    start   BIGINT          NOT NULL,
+    size    BIGINT          NOT NULL    DEFAULT 0,
+    status  INT             NOT NULL    DEFAULT 0,
+    updtime TIMESTAMP       NOT NULL    DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0),
+    PRIMARY KEY (md5, id)
+) CHARSET=gbk;
+
+-- status:
+0   未上传
+1   正在上传
+2   上传成功
+
+
+SELECT * FROM slices
+    WHERE TIMESTAMPDIFF(SECOND, updtime, sysdate()) > 5;
+
+-- find_undone_slice <md5code>
+SELECT id, start, size FROM slices
+    WHERE
+        md5="md5code" and
+        (
+            (status = 0)
+            or
+            (status=1 and TIMESTAMPDIFF(SECOND, updtime, sysdate()) > 10)
+        )
+    ;
+
+
+DELIMITER $$
+DROP PROCEDURE IF EXISTS insertSlices;
+CREATE PROCEDURE insertSlices(md5 CHAR(50), full_size BIGINT, slice_size BIGINT)
+BEGIN
+    DECLARE i, max_i, st BIGINT;
+    SET max_i = (full_size+slice_size-1) DIV slice_size;
+    SET i = 1;
+    SET st = 0;
+    WHILE i<max_i DO
+        INSERT INTO slices (md5, id, start, size) VALUES (md5, i, st, slice_size);
+        SET i = i+1;
+        SET st = st + slice_size;
+    END WHILE;
+    INSERT INTO slices (md5, id, start, size) VALUES (md5, max_i, st, full_size-st);
+END $$
+DELIMITER ;
+
+CALL insertSlices('abc', 5000, 1024);

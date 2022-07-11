@@ -1,0 +1,27 @@
+CREATE TABLE users (
+    username    CHAR(50)        NOT NULL    UNIQUE,
+    password    CHAR(50)        NOT NULL,
+    rootdir_id  INT             NOT NULL,
+    PRIMARY KEY (username)
+) CHARSET=gbk;
+
+
+-- new rootdir_id
+SELECT MAX(ufile_id) FROM ufiles;
++1
+
+-- register username password rootdir_id
+INSERT INTO users (username, password, rootdir_id) VALUES (
+    username, MD5(passowrd), rootdir_id
+);
+INSERT INTO ufiles (ufile_id, parent_id, is_dir, name) VALUES (
+    rootdir_id, rootdir_id, 1, username
+);
+
+
+INSERT INTO users (username, password, rootdir_id) VALUES (
+    "hehepig", MD5("hehepig"), 3
+);
+INSERT INTO ufiles (ufile_id, parent_id, is_dir, name) VALUES (
+    3, 3, 1, "hehepig"
+);

@@ -1,0 +1,17 @@
+{
+  "name": "netdisk-client",
+  "version": "1.0.0",
+  "description": "A Netdisk Client",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron --inspect .",
+    "packager": " electron-packager ./  Netdisk --download.mirrorOptions.mirror=https://npm.taobao.org/mirrors/electron/ --platform=win32 --arch=x64 --out=./app --overwrite --asar --electron-version=19.0.6"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.8",
+    "asar": "^3.1.0",
+    "child_process": "^1.0.2",
+    "form-data": "^4.0.0",
+    "node-static": "^0.7.11"
+  }
+}

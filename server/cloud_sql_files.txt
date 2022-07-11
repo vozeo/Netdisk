@@ -1,0 +1,25 @@
+CREATE TABLE files (
+    md5     CHAR(50)        NOT NULL    UNIQUE,
+    size    BIGINT          NOT NULL,
+    status  INT             NOT NULL    DEFAULT 0,
+    slice_size  BIGINT      NOT NULL    DEFAULT 1048576,
+    PRIMARY KEY (md5)
+) CHARSET=gbk;
+
+-- status:
+0   未上传成功
+1   上传成功
+
+-- check filemd5
+SELECT COUNT(1) FROM files WHERE md5=filemd5;
+SELECT COUNT(1) FROM files WHERE md5="d41d8cd98f00b204e9800998ecf8427e";
+
+-- insert filemd5 size status
+INSERT INTO files (md5, size, status) VALUES (filemd5, size, status);
+INSERT INTO files (md5, size, status) VALUES ("d41d8cd98f00b204e9800998ecf8427e", 0, 0);
+
+-- modify filemd5 newstatus
+UPDATE files
+    SET status=newstatus
+    WHERE md5=filemd5;
+UPDATE files SET status=1 WHERE md5="d41d8cd98f00b204e9800998ecf8427e";

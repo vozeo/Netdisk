@@ -1,0 +1,71 @@
+[{"ufile_id":"2","is_dir":1,"name":"dir1","upload_time":"1926-08-17 21:46","size":0},{"ufile_id":"3","is_dir":0,"name":"file1","upload_time":"1926-08-17 21:46","size":10086},{"ufile_id":"4","is_dir":0,"name":"file2.cpp","upload_time":"2077-08-17 21:46","size":666233}]
+
+
+一则通信以 \n 结尾，中间各个元素以 \t 分隔。
+
+
+OP_LS           文件列表
+> "10   dir\n"
+<"[{"ufile_id":"2","is_dir":1,"name":"dir1","md5":"sdfasdfsda","upload_time":"1926-08-17 21:46","size":0},{"ufile_id":"3","is_dir":0,"name":"file1","upload_time":"1926-08-17 21:46","size":10086},{"ufile_id":"4","is_dir":0,"name":"file2.cpp","md5":"sdfasdfsda","upload_time":"2077-08-17 21:46","size":666233}]"
+
+OP_MKDIR        创建文件夹
+> "11   curdir_id   name\n"
+  成功 <"{"ret_code":0}"
+  失败 <"{"ret_code":-1}"
+
+OP_TOUCH       创建文件
+> "12   curdir_id   fname   md5\n"
+  成功 <"{"ret_code":0}"
+  失败 <"{"ret_code":-1}"
+
+OP_CP           复制
+> "13   dir_from    dir_to\n"
+  成功 <"{"ret_code":0}"
+  失败 <"{"ret_code":-1}"
+
+OP_MV           移动
+> "14   dir_from    dir_to\n"
+  成功 <"{"ret_code":0}"
+  失败 <"{"ret_code":-1}"
+
+OP_RM           删除
+> "15   dir\n"
+  成功 <"{"ret_code":0}"
+  失败 <"{"ret_code":-1}"
+
+OP_RENAME       改名
+> "16   dir     new_name\n"
+  成功 <"{"ret_code":0}"
+  失败 <"{"ret_code":-1}"
+
+OP_GETDETAIL_F  获取文件详细信息
+> "17   dir\n"
+  成功 <"{"ret_code":0,"md5":md5, "slice_num": 3, "name": "file1", "is_dir": 0}"
+  失败 <"{"ret_code":-1}"
+
+OP_GETDETAIL_D  获取文件夹详细信息
+> "18   dir"
+  <{"ufile_id":xx, "subs":[  ]}
+
+
+OP_UPLOAD_REQ
+> "21   md5   full_size\n"     
+  待上传切片  <{"ret_code":1,"progress":0.1,"slice_id":xxx,"start":xxx,"slice_size":xxxx}
+  上传完成    <{"ret_code":0}
+
+OP_UPLOAD_ACK
+> "22   md5   slice_id\n"
+  待上传切片  <{"ret_code":1,"progress":0.1,"slice_id":xxx,"start":xxx,"slice_size":xxxx}
+  上传完成    <{"ret_code":0}
+
+
+OP_REGISTER     注册
+> "31   username    password\n"
+  成功 <"{"rootdir":rootdir}"
+  失败 <"{"rootdir":-1}"
+
+OP_LOGIN        登录
+> "32   username    password\n"
+  成功 <"{"rootdir":rootdir}"
+  失败-无该用户 <"{"rootdir":-1}"
+  失败-密码错误 <"{"rootdir":-2}"

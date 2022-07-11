@@ -1,0 +1,4 @@
+CREATE TABLE ufile_user (
+    ufile_id    INT             NOT NULL    UNIQUE,
+    username    CHAR(50)        NOT NULL
+) CHARSET=gbk;

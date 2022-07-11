@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="gbk" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Netdisk</title>
+    <link rel="icon" type="image/x-icon" href="./asset/favicon.ico" />
+    <link href="./css/bootstrap-icons.css" rel="stylesheet" />
+    <link href="./css/styles.css" rel="stylesheet" />
+    <link href="./css/sign.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.14.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/ionicons/4.6.3/css/ionicons.min.css" />
+</head>
+
+<body id="page-top">
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm" id="mainNav">
+        <div class="container px-5">
+            <a class="navbar-brand fw-bold" href="/">Netdisk</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto me-4 my-3 my-lg-0">
+                    <li class="nav-item"><a class="nav-link me-lg-3" href="/">Home</a></li>
+                    <li class="nav-item"><a class="nav-link me-lg-3" href="/signin.html">Sign in</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section>
+        <form id="form" align="center" onsubmit="return false" action="##" method="post" enctype="multipart/form-data">
+            <h1 class="h3 mb-3 fw-normal">Sign Up</h1>
+
+            <div class="form-floating">
+                <input type="text" class="form-control" id="username" placeholder="Username">
+                <label for="username">Username</label>
+            </div>
+
+            <div class="form-floating">
+                <input type="password" class="form-control my-2" id="password" placeholder="Password">
+                <label for="password">Password</label>
+            </div>
+
+            <button id="signup" class="w-100 btn btn-lg btn-primary mt-4" type="button">Sign Up</button>
+        </form>
+
+        <div class="position-fixed bottom-0 end-0 p-3 pb-5" style="z-index: 11">
+            <div id="liveToast" class="toast text-white bg-primary" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                    <strong id="toast-title" class="me-auto">Netdisk</strong>
+                </div>
+                <div id="toast-content" class="toast-body"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gradient-primary-to-secondary text-center fixed-bottom p-1">
+        <div class="container p-1">
+            <div class="text-white-50 small">
+                <div class="mb-2">&copy; Net-disk 2022. All Rights Reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/bootstrap.bundle.min.js"></script>
+    <script src="./js/jquery-3.6.0.min.js"></script>
+    <script src="./js/sign.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+CREATE TABLE ufiles (
+    ufile_id    INT             NOT NULL    UNIQUE  AUTO_INCREMENT,
+
+    parent_id   INT             NOT NULL,
+    is_dir      INT             NOT NULL,
+
+    name        CHAR(100)       NOT NULL,
+    md5         CHAR(50)        NOT NULL    DEFAULT 'd41d8cd98f00b204e9800998ecf8427e',
+    upload_time TIMESTAMP(0)    NOT NULL    DEFAULT CURRENT_TIMESTAMP(0)    ON UPDATE CURRENT_TIMESTAMP(0),
+
+    PRIMARY KEY (parent_id, name)
+) CHARSET=gbk;
+
+
+
+-- root
+INSERT INTO ufiles (ufile_id, parent_id, is_dir, name) VALUES (
+    1, 1, 1, "/"
+);
+
+-- <curdir_id> touch fname
+INSERT INTO ufiles (parent_id, is_dir, name) VALUES (
+    curdir_id, 0, fname
+);
+INSERT INTO ufiles (parent_id, is_dir, name) VALUES (1, 0, "file1");
+
+-- <curdir_id> mkdir dirname
+INSERT INTO ufiles (parent_id, is_dir, name) VALUES (
+    curdir_id, 1, dirname
+);
+INSERT INTO ufiles (parent_id, is_dir, name) VALUES (1, 1, "dir1");
+
+-- <curdir_id> ls
+SELECT ufile_id, is_dir, name, upload_time FROM ufiles WHERE parent_id = curdir_id and parent_id!=ufile_id ORDER BY is_dir DESC, name ASC;
+
+-- <curdir_id> cd dirname
+SELECT ufile_id FROM ufiles WHERE parent_id=curdir_id and and id_dir=1 name=dirname;
+
+-- count md5
+SELECT COUNT(1) FROM ufiles WHERE md5='d41d8cd98f00b204e9800998ecf8427e';
